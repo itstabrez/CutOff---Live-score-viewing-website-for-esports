@@ -31,3 +31,6 @@ const createLazyComponent = (importFunc: any) => {
 export const HomePage = createLazyComponent(
     () => import('../../pages/homePage/HomePage')
 );
+export const PointsTable = createLazyComponent(
+    () => import('../../pages/pointsTable/PointsTablePage')
+);

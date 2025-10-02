@@ -10,9 +10,11 @@ import {
     Grid,
     Button,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
     const [selectedTab, setSelectedTab] = useState(0);
+    const navigate = useNavigate();
 
     // Mock match data
     const tournaments = [
@@ -20,30 +22,30 @@ const HomePage = () => {
             id: 1,
             type: "Official",
             name: ["Battleground Mobile Showdown"],
-            score: "Starts: 2 Oct, 9:30 AM",
+            score: "Starts: 4 Oct, 2:45 PM",
             status: "Upcoming",
         },
-        {
-            id: 1,
-            type: "Third Party",
-            name: ["Battleground Master Series"],
-            score: "Starts: 2 Oct, 9:30 AM",
-            status: "Upcoming",
-        },
-        {
-            id: 1,
-            type: "Official",
-            name: ["Battleground India Series"],
-            score: "Starts: 2 Oct, 9:30 AM",
-            status: "Upcoming",
-        },
+        // {
+        //     id: 1,
+        //     type: "Third Party",
+        //     name: ["Battleground Master Series"],
+        //     score: "Starts: 2 Oct, 9:30 AM",
+        //     status: "Upcoming",
+        // },
+        // {
+        //     id: 1,
+        //     type: "Official",
+        //     name: ["Battleground India Series"],
+        //     score: "Starts: 2 Oct, 9:30 AM",
+        //     status: "Upcoming",
+        // },
     ];
 
     // Mock blogs/videos
     const blogs = [
         {
             id: 1,
-            title: "USA Cricket files for bankruptcy",
+            title: "Slot for PMGC",
             description:
                 "Minutes before their hearing against ACE, USA Cricket filed for bankruptcy.",
             image:
@@ -107,7 +109,10 @@ const HomePage = () => {
                             {tournaments[selectedTab].status}
                         </Typography>
                         <Box mt={2}>
-                            <Button variant="contained" sx={{ mr: 2 }}>
+                            <Button
+                                variant="contained" sx={{ mr: 2 }}
+                                onClick={() => navigate("/points-table")}
+                            >
                                 Points Table
                             </Button>
                             <Button variant="outlined">Schedule</Button>
@@ -117,7 +122,7 @@ const HomePage = () => {
             </Box>
 
             {/* BLOGS / VIDEOS SECTION */}
-            <Box sx={{ p: 3 }}>
+            {/* <Box sx={{ p: 3 }}>
                 <Typography variant="h5" gutterBottom fontWeight="bold">
                     Latest Blogs & Videos
                 </Typography>
@@ -148,10 +153,10 @@ const HomePage = () => {
                                 </Box>
                             </Card>
                         </Grid>
-                    ))}
+                    ))} */}
 
-                    {/* Example of an embedded YouTube video */}
-                    <Grid size={{ xs: 12, md: 6 }}>
+            {/* Example of an embedded YouTube video */}
+            {/* <Grid size={{ xs: 12, md: 6 }}>
                         <Card sx={{ borderRadius: 2, boxShadow: 2 }}>
                             <CardContent>
                                 <Typography variant="h6" gutterBottom>
@@ -179,7 +184,7 @@ const HomePage = () => {
                         </Card>
                     </Grid>
                 </Grid>
-            </Box>
+            </Box> */}
         </Box>
     );
 };
