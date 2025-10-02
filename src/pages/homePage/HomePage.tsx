@@ -6,8 +6,6 @@ import {
     Tab,
     Card,
     CardContent,
-    CardMedia,
-    Grid,
     Button,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -40,6 +38,33 @@ const HomePage = () => {
         //     status: "Upcoming",
         // },
     ];
+
+    const tournamentRoundsAndMatches = [
+        {
+            id: 1,
+            name: ["Semi-Finals"],
+            dateTime: "Starts: 4 Oct, 2:45 PM",
+            status: "Upcoming",
+        },
+        {
+            id: 2,
+            name: ["Quarter Finals"],
+            dateTime: "Ended On 31st September",
+            status: "Completed",
+        },
+        {
+            id: 3,
+            name: ["Upper Bracket"],
+            dateTime: "Ended",
+            status: "Completed",
+        },
+        {
+            id: 4,
+            name: ["Lower Bracket"],
+            dateTime: "Ended",
+            status: "Completed",
+        },
+    ]
 
     // Mock blogs/videos
     const blogs = [
@@ -96,30 +121,108 @@ const HomePage = () => {
 
             {/* SELECTED MATCH CARD */}
             <Box sx={{ p: 3 }}>
-                <Card sx={{ borderRadius: 3, boxShadow: 3 }}>
-                    <CardContent>
-                        <Typography variant="h6" fontWeight="bold">
-                            {tournaments[selectedTab].name}
-                            ({tournaments[selectedTab].type})
-                        </Typography>
-                        <Typography variant="body1" color="text.secondary" mt={1}>
-                            {tournaments[selectedTab].score}
-                        </Typography>
-                        <Typography variant="body2" color="primary" mt={1}>
-                            {tournaments[selectedTab].status}
-                        </Typography>
-                        <Box mt={2}>
-                            <Button
-                                variant="contained" sx={{ mr: 2 }}
-                                onClick={() => navigate("/points-table")}
+                <Box
+                    sx={{
+                        display: "flex",
+                        gap: 2,
+                        overflowX: "auto",
+                        pb: 1,
+                        "&::-webkit-scrollbar": { height: 6 },
+                        "&::-webkit-scrollbar-thumb": {
+                            backgroundColor: "#ccc",
+                            borderRadius: 3,
+                        },
+                    }}
+                >
+                    {tournamentRoundsAndMatches.map((tournament, idx) => {
+                        const isCompleted = tournament.status === "Completed";
+                        const upcomingMatches = tournament.status === "Upcoming"
+                        return (
+                            <Card
+                                key={idx}
+                                sx={{
+                                    borderRadius: 3,
+                                    boxShadow: 3,
+                                    minWidth: 280,
+                                    flexShrink: 0,
+                                    bgcolor: isCompleted ? "#f5f5f5" : "white", // dimmed look
+                                    opacity: isCompleted ? 0.90 : 1, // subtle faded effect
+                                    position: "relative",
+                                }}
                             >
-                                Points Table
-                            </Button>
-                            <Button variant="outlined">Schedule</Button>
-                        </Box>
-                    </CardContent>
-                </Card>
+                                <CardContent>
+                                    <Typography variant="h6" fontWeight="bold">
+                                        {tournament.name}
+                                    </Typography>
+                                    <Typography variant="body1" color="text.secondary" mt={1}>
+                                        {tournament.dateTime}
+                                    </Typography>
+                                    <Typography
+                                        variant="body2"
+                                        color={isCompleted ? "text.disabled" : "primary"}
+                                        mt={1}
+                                    >
+                                        {tournament.status}
+                                    </Typography>
+
+                                    <Box mt={2}>
+                                        <Button
+                                            variant="contained"
+                                            sx={{ mr: 2 }}
+                                            onClick={() => navigate("/points-table")}
+                                        >
+                                            Points Table
+                                        </Button>
+                                        <Button variant="outlined">
+                                            Schedule
+                                        </Button>
+                                    </Box>
+                                </CardContent>
+
+                                {/* Completed ribbon */}
+                                {isCompleted && (
+                                    <Box
+                                        sx={{
+                                            position: "absolute",
+                                            top: 12,
+                                            right: -30,
+                                            bgcolor: "grey.700",
+                                            color: "white",
+                                            px: 4,
+                                            py: 0.5,
+                                            transform: "rotate(45deg)",
+                                            fontSize: "0.75rem",
+                                            fontWeight: "bold",
+                                        }}
+                                    >
+                                        Completed
+                                    </Box>
+                                )}
+                                {upcomingMatches && (
+                                    <Box
+                                        sx={{
+                                            position: "absolute",
+                                            top: 12,
+                                            right: -30,
+                                            bgcolor: "success.main", // green shade
+                                            color: "white",
+                                            px: 4,
+                                            py: 0.5,
+                                            transform: "rotate(45deg)",
+                                            fontSize: "0.75rem",
+                                            fontWeight: "bold",
+                                        }}
+                                    >
+                                        Upcoming
+                                    </Box>
+                                )}
+                            </Card>
+                        );
+                    })}
+                </Box>
             </Box>
+
+
 
             {/* BLOGS / VIDEOS SECTION */}
             {/* <Box sx={{ p: 3 }}>
